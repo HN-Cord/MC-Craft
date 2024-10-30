@@ -1,0 +1,5 @@
+name: Craft
+version: '0.0.1-Damo'
+main: hn.blacknight0981.craft.Craft
+api-version: '1.21'
+authors: [ HN ]
