@@ -3,3 +3,6 @@ version: '0.0.1-Damo'
 main: hn.blacknight0981.craft.Craft
 api-version: '1.21'
 authors: [ HN ]
+
+# 實現姓
+bootstrapper: hn.blacknight0981.craft.bootstrap.EnchantmentManager
