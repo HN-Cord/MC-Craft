@@ -55,7 +55,7 @@ public class EnchantConfig {
         /*
             粉碎
         */
-        ConfigurationSection smashingSection = enchantsSection.createSection("smashing");
+        ConfigurationSection smashingSection = enchantsSection.getConfigurationSection("smashing");
         if (smashingSection == null) {
             smashingSection = enchantsSection.createSection("smashing");
         }
@@ -102,7 +102,7 @@ public class EnchantConfig {
         ExcavatingEnchant excavatingEnchant = new ExcavatingEnchant(
                 Config.getInt(excavatingSection, "anvilCost", 1),
                 Config.getInt(excavatingSection, "weight", 1),
-                Config.getInt(excavatingSection, "maxLevel", 1),
+                Config.getInt(excavatingSection, "maxLevel", 2),
                 EnchantmentRegistryEntry.EnchantmentCost.of(
                         Config.getInt(excavatingSection, "minimumCost.base", 20),
                         Config.getInt(excavatingSection, "maximumCost.additionalPerLevel", 3)
