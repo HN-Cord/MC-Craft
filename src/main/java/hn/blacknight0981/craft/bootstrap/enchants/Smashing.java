@@ -1,4 +1,4 @@
-package hn.blacknight0981.craft.bootstrap.enchantment;
+package hn.blacknight0981.craft.bootstrap.enchants;
 
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
@@ -11,16 +11,16 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import org.bukkit.inventory.EquipmentSlotGroup;
 
-public class ChainReaction implements PluginBootstrap {
+public class Smashing implements PluginBootstrap {
     @Override
     public void bootstrap(BootstrapContext context) {
         context.getLifecycleManager().registerEventHandler(RegistryEvents.ENCHANTMENT.freeze().newHandler(event -> {
             event.registry().register(
-                    TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("craft:chain_reaction")),
-                    b -> b.description(Component.text("連鎖挖礦"))
+                    TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("craft:smashing")),
+                    b -> b.description(Component.text("粉碎"))
                             .supportedItems(event.getOrCreateTag(ItemTypeTagKeys.PICKAXES))
                             .anvilCost(1)
-                            .maxLevel(1)
+                            .maxLevel(5)
                             .weight(1)
                             .minimumCost(EnchantmentRegistryEntry.EnchantmentCost.of(1, 1))
                             .maximumCost(EnchantmentRegistryEntry.EnchantmentCost.of(3, 1))

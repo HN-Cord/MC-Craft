@@ -1,7 +1,7 @@
 package hn.blacknight0981.craft.bootstrap;
 
-import hn.blacknight0981.craft.bootstrap.enchantment.ChainReaction;
-import hn.blacknight0981.craft.bootstrap.enchantment.Smashing;
+import hn.blacknight0981.craft.bootstrap.enchants.ChainReaction;
+import hn.blacknight0981.craft.bootstrap.enchants.Smashing;
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;
 
