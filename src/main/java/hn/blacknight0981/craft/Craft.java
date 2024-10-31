@@ -2,7 +2,9 @@ package hn.blacknight0981.craft;
 
 import hn.blacknight0981.craft.config.EnchantConfig;
 import hn.blacknight0981.craft.enchants.ExcavatingEnchant;
+import hn.blacknight0981.craft.enchants.SmashingEnchant;
 import hn.blacknight0981.craft.listeners.ExcavatingListener;
+import hn.blacknight0981.craft.listeners.SmashingListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Craft extends JavaPlugin {
@@ -21,6 +23,9 @@ public final class Craft extends JavaPlugin {
         getLogger().info("註冊監聽器...");
         if (EnchantConfig.ENCHANTS.containsKey(ExcavatingEnchant.KEY)) {
             getServer().getPluginManager().registerEvents(new ExcavatingListener(), this);
+        }
+        if (EnchantConfig.ENCHANTS.containsKey(SmashingEnchant.KEY)) {
+            getServer().getPluginManager().registerEvents(new SmashingListener(), this);
         }
     }
 }

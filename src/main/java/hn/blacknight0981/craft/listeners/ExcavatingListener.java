@@ -63,7 +63,7 @@ public class ExcavatingListener implements Listener {
                 }
 
                 // 模擬自訂義事件
-                BlockBreakEvent blockBreakEvent = new BlockBreakEvent(block, player);
+                BlockBreakEvent blockBreakEvent = new BlockBreakEvent(targetBlock, player);
                 Bukkit.getServer().getPluginManager().callEvent(blockBreakEvent);
 
                 if (!blockBreakEvent.isCancelled()) {
