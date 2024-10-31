@@ -1,6 +1,7 @@
 package hn.blacknight0981.craft.config;
 
 import hn.blacknight0981.craft.enchants.EnchantioEnchant;
+import hn.blacknight0981.craft.enchants.ExcavatingEnchant;
 import hn.blacknight0981.craft.enchants.SmashingEnchant;
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.TypedKey;
@@ -51,7 +52,9 @@ public class EnchantConfig {
             soulboundSection = enchantsSection.createSection("soulbound");
         }
 
-        // 粉碎
+        /*
+            粉碎
+        */
         ConfigurationSection smashingSection = enchantsSection.createSection("smashing");
         if (smashingSection == null) {
             smashingSection = enchantsSection.createSection("smashing");
@@ -86,6 +89,45 @@ public class EnchantConfig {
 
         if (Config.getBoolean(smashingSection, "enabled", true)) {
             ENCHANTS.put(SmashingEnchant.KEY, smashingEnchant);
+        }
+
+        /*
+            挖掘
+        */
+        ConfigurationSection excavatingSection = enchantsSection.getConfigurationSection("excavating");
+        if (excavatingSection == null) {
+            excavatingSection = enchantsSection.createSection("excavating");
+        }
+
+        ExcavatingEnchant excavatingEnchant = new ExcavatingEnchant(
+                Config.getInt(excavatingSection, "anvilCost", 1),
+                Config.getInt(excavatingSection, "weight", 1),
+                Config.getInt(excavatingSection, "maxLevel", 1),
+                EnchantmentRegistryEntry.EnchantmentCost.of(
+                        Config.getInt(excavatingSection, "minimumCost.base", 20),
+                        Config.getInt(excavatingSection, "maximumCost.additionalPerLevel", 3)
+                ),
+                EnchantmentRegistryEntry.EnchantmentCost.of(
+                        Config.getInt(excavatingSection, "maximumCost.base", 65),
+                        Config.getInt(excavatingSection, "maximumCost.additionalPerLevel", 1)
+                ),
+                Config.getBoolean(excavatingSection, "canGetFromEnchantingTable", true),
+                getTagsFromList(Config.getStringList(
+                        excavatingSection,
+                        "supportedItemTags",
+                        List.of(
+                                "minecraft:wooden_pickaxe",
+                                "minecraft:stone_pickaxe",
+                                "minecraft:iron_pickaxe",
+                                "minecraft:diamond_pickaxe",
+                                "minecraft:golden_pickaxe",
+                                "minecraft:netherite_pickaxe"
+                        )
+                ))
+        );
+
+        if (Config.getBoolean(excavatingSection, "enabled", true)) {
+            ENCHANTS.put(ExcavatingEnchant.KEY, excavatingEnchant);
         }
 
         configuration.save(configFile);
