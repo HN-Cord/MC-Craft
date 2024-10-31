@@ -1,4 +1,4 @@
-package hn.blacknight0981.craft.bootstrap.enchants;
+package hn.blacknight0981.craft.enchants;
 
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.TypedKey;

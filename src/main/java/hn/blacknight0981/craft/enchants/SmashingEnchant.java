@@ -1,7 +1,7 @@
-package hn.blacknight0981.craft.bootstrap.enchants;
+package hn.blacknight0981.craft.enchants;
 
-import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.data.EnchantmentRegistryEntry;
+import io.papermc.paper.registry.keys.tags.EnchantmentTagKeys;
 import io.papermc.paper.registry.tag.TagKey;
 import io.papermc.paper.tag.TagEntry;
 import net.kyori.adventure.key.Key;
@@ -11,7 +11,6 @@ import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,9 +24,7 @@ public class SmashingEnchant implements EnchantioEnchant{
     private final EnchantmentRegistryEntry.EnchantmentCost minimumCost;
     private final EnchantmentRegistryEntry.EnchantmentCost maximumCost;
     private final Set<TagEntry<ItemType>> supportedItemTags;
-    private final double chanceToDropHeadPerLevel;
     private final Set<TagKey<Enchantment>> enchantTagKeys = new HashSet<>();
-    private final Set<EquipmentSlotGroup> activeSlots = new HashSet<>();
 
     public SmashingEnchant(
             int anvilCost,
@@ -35,8 +32,8 @@ public class SmashingEnchant implements EnchantioEnchant{
             int maxLevel,
             EnchantmentRegistryEntry.EnchantmentCost minimumCost,
             EnchantmentRegistryEntry.EnchantmentCost maximumCost,
-            Set<TagEntry<ItemType>> supportedItemTags,
-            double chanceToDropHeadPerLevel
+            boolean canGetFromEnchantingTable,
+            Set<TagEntry<ItemType>> supportedItemTags
     ) {
         this.anvilCost = anvilCost;
         this.weight = weight;
@@ -44,7 +41,9 @@ public class SmashingEnchant implements EnchantioEnchant{
         this.minimumCost = minimumCost;
         this.maximumCost = maximumCost;
         this.supportedItemTags = supportedItemTags;
-        this.chanceToDropHeadPerLevel = chanceToDropHeadPerLevel;
+        if (canGetFromEnchantingTable) {
+            enchantTagKeys.add(EnchantmentTagKeys.IN_ENCHANTING_TABLE);
+        }
     }
 
     @Override
@@ -72,10 +71,6 @@ public class SmashingEnchant implements EnchantioEnchant{
         return weight;
     }
 
-    public double getChanceToDropHeadPerLevel() {
-        return chanceToDropHeadPerLevel;
-    }
-
     @Override
     public @NotNull EnchantmentRegistryEntry.EnchantmentCost getMinimumCost() {
         return minimumCost;
@@ -88,12 +83,7 @@ public class SmashingEnchant implements EnchantioEnchant{
 
     @Override
     public @NotNull Iterable<EquipmentSlotGroup> getActiveSlots() {
-        return activeSlots;
-    }
-
-    @Override
-    public @NotNull TagKey<ItemType> getTagForSupportedItems() {
-        return TagKey.create(RegistryKey.ITEM, Key.key("craft:smashing"));
+        return Set.of(EquipmentSlotGroup.MAINHAND);
     }
 
     @Override

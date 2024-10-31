@@ -5,4 +5,4 @@ api-version: '1.21'
 authors: [ HN ]
 
 # 實現姓
-bootstrapper: hn.blacknight0981.craft.bootstrap.EnchantmentManager
+bootstrapper: hn.blacknight0981.craft.bootstrap.EnchantBootstrap
