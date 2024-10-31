@@ -3,6 +3,8 @@ package hn.blacknight0981.craft.enchants;
 import io.papermc.paper.registry.RegistryKey;
 import io.papermc.paper.registry.TypedKey;
 import io.papermc.paper.registry.data.EnchantmentRegistryEntry;
+import io.papermc.paper.registry.set.RegistryKeySet;
+import io.papermc.paper.registry.set.RegistrySet;
 import io.papermc.paper.registry.tag.TagKey;
 import io.papermc.paper.tag.TagEntry;
 import net.kyori.adventure.key.Key;
@@ -51,5 +53,9 @@ public interface EnchantioEnchant {
     @NotNull
     default TagEntry<Enchantment> getTagEntry() {
         return TagEntry.valueEntry(TypedKey.create(RegistryKey.ENCHANTMENT, getKey()));
+    }
+
+    default RegistryKeySet<@NotNull Enchantment> getExclusiveWith() {
+        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, Set.of());
     }
 }

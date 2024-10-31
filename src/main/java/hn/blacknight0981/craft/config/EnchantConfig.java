@@ -9,6 +9,7 @@ import io.papermc.paper.registry.keys.tags.ItemTypeTagKeys;
 import io.papermc.paper.registry.tag.TagKey;
 import io.papermc.paper.tag.TagEntry;
 import net.kyori.adventure.key.Key;
+import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -21,11 +22,15 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.logging.Logger;
 
+@SuppressWarnings("UnstableApiUsage")
 public class EnchantConfig {
+
+    private ComponentLogger logger;
 
     public static final Map<Key, EnchantioEnchant> ENCHANTS = new HashMap<>();
 
-    public EnchantConfig(Path filePath) throws IOException {
+    public EnchantConfig(Path filePath, ComponentLogger logger) throws IOException {
+        this.logger = logger;
         File file = filePath.toFile();
         if (!file.exists()) {
             file.mkdirs();
@@ -57,7 +62,7 @@ public class EnchantConfig {
                 Config.getInt(smashingSection, "weight", 5),
                 Config.getInt(smashingSection, "maxLevel", 5),
                 EnchantmentRegistryEntry.EnchantmentCost.of(
-                        Config.getInt(smashingSection, "minimumCost.base", 40),
+                        Config.getInt(smashingSection, "minimumCost.base", 15),
                         Config.getInt(smashingSection, "maximumCost.additionalPerLevel", 3)
                 ),
                 EnchantmentRegistryEntry.EnchantmentCost.of(
@@ -69,7 +74,12 @@ public class EnchantConfig {
                         smashingSection,
                         "supportedItemTags",
                         List.of(
-                                "#minecraft:enchantable/mining"
+                                "minecraft:wooden_pickaxe",
+                                "minecraft:stone_pickaxe",
+                                "minecraft:iron_pickaxe",
+                                "minecraft:diamond_pickaxe",
+                                "minecraft:golden_pickaxe",
+                                "minecraft:netherite_pickaxe"
                         )
                 ))
         );
@@ -93,7 +103,7 @@ public class EnchantConfig {
                     TagEntry<ItemType> tagEntry = TagEntry.tagEntry(tagKey);
                     supportedItemTags.add(tagEntry);
                 } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
+                    logger.error(e.getMessage());
                 }
                 continue;
             }
@@ -103,7 +113,7 @@ public class EnchantConfig {
                 TagEntry<ItemType> tagEntry = TagEntry.valueEntry(typedKey);
                 supportedItemTags.add(tagEntry);
             } catch (IllegalArgumentException | NullPointerException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
         return supportedItemTags;

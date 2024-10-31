@@ -20,9 +20,9 @@ public class EnchantBootstrap implements PluginBootstrap {
     @Override
     public void bootstrap(BootstrapContext context) {
         try {
-            new EnchantConfig(context.getDataDirectory());
+            new EnchantConfig(context.getDataDirectory(), context.getLogger());
         } catch (IOException e) {
-            e.printStackTrace();
+            context.getLogger().error(e.getMessage());
         }
 
         Collection<EnchantioEnchant> enchantioEnchants = EnchantConfig.ENCHANTS.values();
@@ -49,6 +49,7 @@ public class EnchantBootstrap implements PluginBootstrap {
                     enchantment.maximumCost(enchant.getMaximumCost());
                     enchantment.activeSlots(enchant.getActiveSlots());
                     enchantment.supportedItems(event.getOrCreateTag(enchant.getTagForSupportedItems()));
+                    enchantment.exclusiveWith(enchant.getExclusiveWith());
                 });
             }
         }));

@@ -1,7 +1,11 @@
 package hn.blacknight0981.craft.enchants;
 
+import io.papermc.paper.registry.RegistryKey;
+import io.papermc.paper.registry.TypedKey;
 import io.papermc.paper.registry.data.EnchantmentRegistryEntry;
 import io.papermc.paper.registry.keys.tags.EnchantmentTagKeys;
+import io.papermc.paper.registry.set.RegistryKeySet;
+import io.papermc.paper.registry.set.RegistrySet;
 import io.papermc.paper.registry.tag.TagKey;
 import io.papermc.paper.tag.TagEntry;
 import net.kyori.adventure.key.Key;
@@ -94,5 +98,11 @@ public class SmashingEnchant implements EnchantioEnchant{
     @Override
     public @NotNull Set<TagKey<Enchantment>> getEnchantTagKeys() {
         return Collections.unmodifiableSet(enchantTagKeys);
+    }
+
+    @Override
+    public RegistryKeySet<@NotNull Enchantment> getExclusiveWith() {
+        return RegistrySet.keySet(RegistryKey.ENCHANTMENT, TypedKey.create(RegistryKey.ENCHANTMENT, Key.key("minecraft:silk_touch"))
+        );
     }
 }
